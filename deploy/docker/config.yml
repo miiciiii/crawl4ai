@@ -16,26 +16,17 @@ llm:
 
 # Redis Configuration
 redis:
-  host: "localhost"
-  port: 6379
-  db: 0
-  password: ""
-  ssl: False
-  ssl_cert_reqs: None
-  ssl_ca_certs: None
-  ssl_certfile: None
-  ssl_keyfile: None
-  ssl_cert_reqs: None
-  ssl_ca_certs: None
-  ssl_certfile: None
-  ssl_keyfile: None
+  # Use the full Upstash Redis connection string from your Render env var
+  # Example: rediss://default:YOUR_PASSWORD@YOUR_HOST:6379
+  url: ${REDIS_URL}
 
 # Rate Limiting Configuration
 rate_limiting:
   enabled: True
   default_limit: "1000/minute"
   trusted_proxies: []
-  storage_uri: "memory://"  # Use "redis://localhost:6379" for production
+  # Point to Redis instead of in-memory storage
+  storage_uri: ${REDIS_URL}
 
 # Security Configuration
 security:
@@ -62,7 +53,7 @@ crawler:
     batch_process: 300.0  # Timeout for batch processing
   pool:
     max_pages: 40                          # ← GLOBAL_SEM permits
-    idle_ttl_sec: 1800                     # ← 30 min janitor cutoff
+    idle_ttl_sec: 1800                     # ← 30 min janitor cutoff
   browser:
     kwargs:
       headless: true
