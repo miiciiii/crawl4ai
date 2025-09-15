@@ -16,17 +16,16 @@ llm:
 
 # Redis Configuration
 redis:
-  # Use the full Upstash Redis connection string from your Render env var
-  # Example: rediss://default:YOUR_PASSWORD@YOUR_HOST:6379
-  url: ${REDIS_URL}
+  # Let Crawl4AI read the REDIS_URL env var from Render
+  url: null
 
 # Rate Limiting Configuration
 rate_limiting:
   enabled: True
   default_limit: "1000/minute"
   trusted_proxies: []
-  # Point to Redis instead of in-memory storage
-  storage_uri: ${REDIS_URL}
+  # Let Crawl4AI read REDIS_URL from environment instead of hardcoding
+  storage_uri: null
 
 # Security Configuration
 security:
